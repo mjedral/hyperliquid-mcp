@@ -1,0 +1,31 @@
+{
+    "name": "hyperliquid-rag-mcp",
+    "version": "0.1.0",
+    "private": true,
+    "description": "TypeScript monorepo for Hyperliquid RAG and MCP tools",
+    "scripts": {
+        "build": "pnpm -r build",
+        "dev": "pnpm -r dev",
+        "test": "pnpm -r test",
+        "lint": "pnpm -r lint",
+        "lint:fix": "pnpm -r lint:fix",
+        "type-check": "pnpm -r type-check",
+        "clean": "pnpm -r clean"
+    },
+    "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^6.0.0",
+        "@typescript-eslint/parser": "^6.0.0",
+        "eslint": "^8.45.0",
+        "eslint-config-prettier": "^9.0.0",
+        "eslint-plugin-prettier": "^5.0.0",
+        "prettier": "^3.0.0",
+        "typescript": "^5.1.0",
+        "tsup": "^7.2.0",
+        "vitest": "^0.34.0"
+    },
+    "engines": {
+        "node": ">=18.0.0",
+        "pnpm": ">=8.0.0"
+    },
+    "packageManager": "pnpm@8.6.0"
+}

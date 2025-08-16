@@ -1,0 +1,40 @@
+{
+    "name": "@hl/shared",
+    "version": "0.1.0",
+    "description": "Shared types, utilities, and error handling for Hyperliquid tools",
+    "main": "./dist/index.js",
+    "module": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.js",
+            "types": "./dist/index.d.ts"
+        }
+    },
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build": "tsup",
+        "dev": "tsup --watch",
+        "test": "vitest run",
+        "test:watch": "vitest",
+        "lint": "eslint src --ext .ts",
+        "lint:fix": "eslint src --ext .ts --fix",
+        "type-check": "tsc --noEmit",
+        "clean": "rm -rf dist"
+    },
+    "keywords": [
+        "hyperliquid",
+        "typescript",
+        "shared",
+        "utilities"
+    ],
+    "license": "MIT",
+    "devDependencies": {
+        "typescript": "^5.1.0",
+        "tsup": "^7.2.0",
+        "vitest": "^0.34.0"
+    }
+}

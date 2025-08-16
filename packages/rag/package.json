@@ -1,0 +1,47 @@
+{
+    "name": "@hl/rag",
+    "version": "0.1.0",
+    "description": "RAG system for Hyperliquid GitBook documentation",
+    "main": "./dist/index.js",
+    "module": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
+    "bin": {
+        "hl-rag": "./dist/bin/hl-rag.js"
+    },
+    "exports": {
+        ".": {
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.js",
+            "types": "./dist/index.d.ts"
+        }
+    },
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build": "tsup",
+        "dev": "tsup --watch",
+        "test": "vitest run",
+        "test:watch": "vitest",
+        "lint": "eslint src --ext .ts",
+        "lint:fix": "eslint src --ext .ts --fix",
+        "type-check": "tsc --noEmit",
+        "clean": "rm -rf dist"
+    },
+    "keywords": [
+        "hyperliquid",
+        "rag",
+        "documentation",
+        "search",
+        "embeddings"
+    ],
+    "license": "MIT",
+    "dependencies": {
+        "@hl/shared": "workspace:*"
+    },
+    "devDependencies": {
+        "typescript": "^5.1.0",
+        "tsup": "^7.2.0",
+        "vitest": "^0.34.0"
+    }
+}

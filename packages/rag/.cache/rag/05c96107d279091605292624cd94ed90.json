@@ -1,0 +1,7 @@
+{
+  "url": "https://hyperliquid.gitbook.io/hyperliquid-docs/onboarding/testnet-faucet",
+  "title": "Testnet faucet",
+  "content": "To use the testnet faucet, you need to have deposited on mainnet with the same address. You can then claim 1,000 mock USDC from the testnet faucet: https://app.hyperliquid-testnet.xyz/dripIf you are using an email login, Privy generates a different wallet address for mainnet and testnet. You can Export your email wallet from mainnet, import it into a wallet extension (e.g., Rabby or Metamask), and connect it to testnet. PreviousExport your email walletNextHyperCoreLast updated 19 days ago",
+  "lastModified": "2025-08-18T09:25:37.943Z",
+  "contentHash": "6463ec65a2edf965c6a44238af02387f0c7f75a5731cf741f16c4789d45a079e"
+}

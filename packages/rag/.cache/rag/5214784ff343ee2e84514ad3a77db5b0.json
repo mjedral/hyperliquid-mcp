@@ -1,0 +1,7 @@
+{
+  "url": "https://hyperliquid.gitbook.io/hyperliquid-docs/hypercore/api-servers",
+  "title": "API servers",
+  "content": "API servers listen to updates from a node and maintains the blockchain state locally. The API server serves information about this state and also forwards user transactions to the node. The API serves two sources of data, REST and Websocket. When user transactions are sent to an API server, they are forwarded to the connected node, which then gossips the transaction as part of the HyperBFT consensus algorithm. Once the transaction has been included in a committed block on the L1, the API server responds to the original request with the execution response from the L1.PreviousBridgeNextClearinghouseLast updated 5 months ago",
+  "lastModified": "2025-08-18T09:25:41.933Z",
+  "contentHash": "408bdc1275c75ac397622ca42413bf511a1453c2f42b4a33b377ad3927b54a60"
+}

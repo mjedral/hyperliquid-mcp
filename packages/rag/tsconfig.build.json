@@ -19,7 +19,6 @@
         "moduleDetection": "force",
         "noEmit": false,
         "outDir": "./dist",
-        "rootDir": "./src",
         // Strict Type Checking
         "strict": true,
         "noImplicitAny": true,

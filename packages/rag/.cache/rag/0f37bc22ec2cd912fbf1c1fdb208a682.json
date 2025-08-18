@@ -1,0 +1,7 @@
+{
+  "url": "https://hyperliquid.gitbook.io/hyperliquid-docs/hypercore/order-book",
+  "title": "Order book",
+  "content": "HyperCore state includes an order book for each asset. The order book works in similarly to centralized exchanges. Orders are added where price is an integer multiple of the tick size, and size is an integer multiple of lot size. Orders are matched in price-time priority. Operations on order books for perp assets take a reference to the clearinghouse, as all positions and margin checks are handled there. Margin checks happen on the opening of a new order, and again for the resting side at the matching of each order. This ensures that the margining system is consistent despite oracle price fluctuations after the resting order is placed.One unique aspect of the Hyperliquid L1 is that the mempool and consensus logic are semantically aware of transactions that interact with HyperCore order books. Within a block, actions are sortedActions that do not send GTC or IOC orders to any bookCancelsActions that send at least one GTC or IOCWithin each category, actions are sorted in the order they were proposed by the block proposer. Modifies are categorized according to the new order they place. PreviousOracleNextStakingLast updated 1 month ago",
+  "lastModified": "2025-08-18T09:25:44.938Z",
+  "contentHash": "03c561d4849c092a08e8dedc09eba8c08ecdd22e5038701a24e7bc1017a2458a"
+}

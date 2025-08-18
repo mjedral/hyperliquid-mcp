@@ -1,0 +1,7 @@
+{
+  "url": "https://hyperliquid.gitbook.io/hyperliquid-docs/onboarding/how-to-stake-hype",
+  "title": "How to stake HYPE",
+  "content": "You can use different websites to stake HYPE on HyperCore, including: https://app.hyperliquid.xyz/staking/https://stake.nansen.ai/stake/hyperliquidhttps://app.validao.xyz/stake/hyperliquidhttps://hypurrscan.io/stakingYou will need HYPE in your Spot Balance on HyperCore. If you have HYPE on the HyperEVM, you would need to transfer it from the HyperEVM to HyperCore.Transfer HYPE from your Spot Balance to your Staking Balance.Choose a validator to stake to. Staking to a validator has a 1 day lockup. To unstake, follow the same process in reverseUnstake from a validator.Transfer from your Staking Balance to your Spot Balance. This takes 7 days. After 7 days, the HYPE will appear in your Spot Balance.For further questions, you can refer to the Staking section.PreviousHow to use the HyperEVMNextConnect mobile via QR codeLast updated 1 month ago",
+  "lastModified": "2025-08-18T09:25:34.971Z",
+  "contentHash": "47b156d2069d93df507b915369240ca4b339fae5ece52d0b16da5502be3c64ed"
+}

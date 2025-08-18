@@ -1,0 +1,7 @@
+{
+  "url": "https://hyperliquid.gitbook.io/hyperliquid-docs/onboarding/export-your-email-wallet",
+  "title": "Export your email wallet",
+  "content": "As a reminder, the Hyperliquid bridge contract only accepts Arbitrum USDC sent over Arbitrum. If you accidentally send the wrong asset to your defi wallet: Make sure you are logged in with the same email addressClick \"Export Email Wallet\" in the settings dropdown in the navigation barFollow the steps in the pop-up to copy your private keyImport your private key into the wallet extension of your choice PreviousConnect mobile via QR codeNextTestnet faucetLast updated 5 months ago",
+  "lastModified": "2025-08-18T09:25:36.934Z",
+  "contentHash": "16ba737953922beceeacf34a9c28f52a1150d90816f665a08bb1385f1df6bdea"
+}

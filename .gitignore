@@ -42,3 +42,9 @@ coverage/
 # Temporary folders
 tmp/
 temp/
+
+# Data and cache directories
+data/
+cache/
+*.db
+*.sqlite

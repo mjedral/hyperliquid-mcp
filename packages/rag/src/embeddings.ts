@@ -45,7 +45,6 @@ export class OpenAIEmbedder implements EmbeddingProvider {
             }
 
             return results;
-            // TOFIX: types error
         } catch (error: unknown) {
             if (error instanceof OpenAI.APIError) {
                 const apiError = error;

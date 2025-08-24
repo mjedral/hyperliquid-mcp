@@ -50,7 +50,7 @@ export async function buildIndex(options: BuildIndexOptions = {}): Promise<void>
 
     if (crawlResult.documents.length === 0) {
       throw new HyperliquidError(
-        ErrorCode.CRAWL_ERROR,
+        ErrorCode.CRAWL_FAILED,
         'No documents found during crawling',
         { baseUrl: config.baseUrl, errors: crawlResult.errors }
       );
@@ -105,7 +105,7 @@ export async function buildIndex(options: BuildIndexOptions = {}): Promise<void>
       throw error;
     }
     throw new HyperliquidError(
-      ErrorCode.INDEX_BUILD_ERROR,
+      ErrorCode.INDEX_BUILD_FAILED,
       'Failed to build index',
       { originalError: error instanceof Error ? error.message : String(error) }
     );
@@ -151,7 +151,7 @@ export async function search(query: string, options: SearchOptions = {}): Promis
       throw error;
     }
     throw new HyperliquidError(
-      ErrorCode.SEARCH_ERROR,
+      ErrorCode.SEARCH_FAILED,
       'Failed to search index',
       { query, originalError: error instanceof Error ? error.message : String(error) }
     );

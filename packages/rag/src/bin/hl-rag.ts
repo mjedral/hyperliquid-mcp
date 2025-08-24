@@ -19,6 +19,7 @@ function parseArgs(args: string[]): { command: string; options: CLIOptions; posi
 
     for (let i = 0; i < args.length; i++) {
         const arg = args[i];
+        if (!arg) continue;
 
         if (arg.startsWith('--')) {
             const [key, value] = arg.slice(2).split('=');
@@ -33,19 +34,44 @@ function parseArgs(args: string[]): { command: string; options: CLIOptions; posi
                     options.verbose = true;
                     break;
                 case 'config':
-                    options.config = value || args[++i];
+                    const configValue = value || args[++i];
+                    if (!configValue) {
+                        console.error('--config requires a value');
+                        process.exit(1);
+                    }
+                    options.config = configValue;
                     break;
                 case 'top-k':
-                    options.topK = parseInt(value || args[++i]);
+                    const topKValue = value || args[++i];
+                    if (!topKValue) {
+                        console.error('--top-k requires a value');
+                        process.exit(1);
+                    }
+                    options.topK = parseInt(topKValue);
                     break;
                 case 'base-url':
-                    options.baseUrl = value || args[++i];
+                    const baseUrlValue = value || args[++i];
+                    if (!baseUrlValue) {
+                        console.error('--base-url requires a value');
+                        process.exit(1);
+                    }
+                    options.baseUrl = baseUrlValue;
                     break;
                 case 'provider':
-                    options.provider = value || args[++i];
+                    const providerValue = value || args[++i];
+                    if (!providerValue) {
+                        console.error('--provider requires a value');
+                        process.exit(1);
+                    }
+                    options.provider = providerValue;
                     break;
                 case 'model':
-                    options.model = value || args[++i];
+                    const modelValue = value || args[++i];
+                    if (!modelValue) {
+                        console.error('--model requires a value');
+                        process.exit(1);
+                    }
+                    options.model = modelValue;
                     break;
                 default:
                     console.error(`Unknown option: --${key}`);
@@ -140,14 +166,15 @@ async function handleBuild(options: CLIOptions): Promise<void> {
             ...(options.model && { embeddingModel: options.model }),
         };
 
-        const onProgress = options.verbose
-            ? (stage: string, progress: number, total: number) => {
+        if (options.verbose) {
+            const onProgress = (stage: string, progress: number, total: number) => {
                 const percentage = Math.round((progress / total) * 100);
                 console.log(`[${percentage}%] ${stage}`);
-            }
-            : undefined;
-
-        await buildIndex({ config, onProgress });
+            };
+            await buildIndex({ config, onProgress });
+        } else {
+            await buildIndex({ config });
+        }
 
     } catch (error) {
         if (error instanceof HyperliquidError) {

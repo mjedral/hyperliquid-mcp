@@ -43,7 +43,7 @@
         "baseUrl": ".",
         "paths": {
             "@hl/shared": [
-                "../shared/src"
+                "../shared/dist"
             ]
         }
     },

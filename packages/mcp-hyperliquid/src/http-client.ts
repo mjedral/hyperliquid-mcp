@@ -221,37 +221,53 @@ export class HyperliquidHttpClient {
             );
         }
 
-        return response.universe.map((market: any) => ({
-            symbol: market.name as Symbol,
-            baseAsset: market.name.split('-')[0] || market.name,
-            quoteAsset: market.name.split('-')[1] || 'USD',
-            status: 'active' as const,
-            tickSize: market.szDecimals ? parseFloat((Math.pow(10, -market.szDecimals)).toFixed(market.szDecimals)) : 0.01,
-            minSize: market.szDecimals ? parseFloat((Math.pow(10, -market.szDecimals)).toFixed(market.szDecimals)) : 0.01,
-        }));
+        return response.universe
+            .filter((market: any) => !market.isDelisted) // Filter out delisted markets
+            .map((market: any) => {
+                // Calculate tick size and min size based on szDecimals
+                // szDecimals represents the number of decimal places for size
+                const tickSize = market.szDecimals !== undefined
+                    ? Math.pow(10, -market.szDecimals)
+                    : 0.01;
+
+                const minSize = tickSize; // Minimum size is typically the same as tick size
+
+                return {
+                    symbol: market.name as Symbol,
+                    baseAsset: market.name.split('-')[0] || market.name,
+                    quoteAsset: market.name.split('-')[1] || 'USD',
+                    status: market.isDelisted ? 'inactive' as const : 'active' as const,
+                    tickSize,
+                    minSize,
+                };
+            });
     }
+
+
 
     /**
      * Parse ticker response from Hyperliquid API
      */
-    private parseTickerResponse(response: any, symbol: Symbol): TickerData {
-        if (!response || typeof response !== 'object') {
+    private parseTickerResponse(allMidsResponse: any, symbol: Symbol): TickerData {
+        if (!allMidsResponse || typeof allMidsResponse !== 'object') {
             throw new HyperliquidError(
                 ErrorCode.VALIDATION_FAILED,
                 'Invalid ticker response format'
             );
         }
 
-        const price = response[symbol];
-        if (price === undefined) {
+        // Get price directly using symbol name
+        const priceStr = allMidsResponse[symbol];
+
+        if (priceStr === undefined) {
             throw HyperliquidError.invalidSymbol(symbol);
         }
 
         // Note: Hyperliquid's allMids endpoint only provides current price
-        // For a complete ticker, we'd need to combine multiple endpoints
+        // For complete ticker data, we'd need to combine with 24h stats
         return {
             symbol,
-            price: parseFloat(price),
+            price: parseFloat(priceStr),
             change24h: 0, // Would need 24h stats endpoint
             volume24h: 0, // Would need 24h stats endpoint
             high24h: 0, // Would need 24h stats endpoint
@@ -264,28 +280,39 @@ export class HyperliquidHttpClient {
      * Parse orderbook response from Hyperliquid API
      */
     private parseOrderbookResponse(response: any, symbol: Symbol): OrderbookData {
-        if (!response || !response.levels) {
+        if (!response || !Array.isArray(response.levels) || response.levels.length !== 2) {
             throw new HyperliquidError(
                 ErrorCode.VALIDATION_FAILED,
-                'Invalid orderbook response format'
+                'Invalid orderbook response format - expected levels array with 2 elements'
             );
         }
 
         const bids: [number, number][] = [];
         const asks: [number, number][] = [];
 
-        response.levels.forEach((level: any) => {
-            const price = parseFloat(level.px);
-            const size = parseFloat(level.sz);
+        // First array in levels is bids (buy orders)
+        const bidLevels = response.levels[0];
+        if (Array.isArray(bidLevels)) {
+            bidLevels.forEach((level: any) => {
+                const price = parseFloat(level.px);
+                const size = parseFloat(level.sz);
+                if (!isNaN(price) && !isNaN(size)) {
+                    bids.push([price, size]);
+                }
+            });
+        }
 
-            if (level.n > 0) {
-                // Positive n means buy orders (bids)
-                bids.push([price, size]);
-            } else {
-                // Negative n means sell orders (asks)
-                asks.push([price, size]);
-            }
-        });
+        // Second array in levels is asks (sell orders)
+        const askLevels = response.levels[1];
+        if (Array.isArray(askLevels)) {
+            askLevels.forEach((level: any) => {
+                const price = parseFloat(level.px);
+                const size = parseFloat(level.sz);
+                if (!isNaN(price) && !isNaN(size)) {
+                    asks.push([price, size]);
+                }
+            });
+        }
 
         // Sort bids descending (highest price first)
         bids.sort((a, b) => b[0] - a[0]);
@@ -296,7 +323,7 @@ export class HyperliquidHttpClient {
             symbol,
             bids,
             asks,
-            timestamp: Date.now(),
+            timestamp: response.time || Date.now(),
         };
     }
 

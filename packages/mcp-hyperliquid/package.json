@@ -23,6 +23,9 @@
         "dev": "tsup --watch",
         "test": "vitest run",
         "test:watch": "vitest",
+        "test:api": "tsx tests/api-tester.ts",
+        "test:api:auto": "tsx tests/api-tester.ts --auto",
+        "test:api:mainnet": "tsx tests/api-tester.ts --auto --mainnet",
         "lint": "eslint src --ext .ts",
         "lint:fix": "eslint src --ext .ts --fix",
         "type-check": "tsc --noEmit",
@@ -40,8 +43,9 @@
         "@hl/shared": "workspace:*"
     },
     "devDependencies": {
-        "typescript": "^5.1.0",
         "tsup": "^7.2.0",
+        "tsx": "^4.20.5",
+        "typescript": "^5.1.0",
         "vitest": "^0.34.0"
     }
 }
